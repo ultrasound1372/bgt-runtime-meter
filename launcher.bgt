@@ -1,0 +1,6 @@
+void main()
+{
+run("rm.exe","",false,false);
+wait(5000);
+run("runtime test.exe","",false,false);
+}

@@ -1,0 +1,14 @@
+void main()
+{
+if(file_exists("latest_runtime.txt"))
+{
+int q=question("runtime tester","would you like to attempt a memory overload?");
+if(q!=1) exit();
+string bla="dieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+while(true) bla+=bla;
+}
+show_game_window("runtime test");
+wait(4000);
+string[] test;
+string v=test[500];
+}

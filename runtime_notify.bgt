@@ -1,0 +1,9 @@
+void main()
+{
+file f;
+f.open("latest_runtime.txt","rb");
+string r=f.read();
+f.close();
+r=string_replace(r,"\0","",true);
+alert("runtime print",r);
+}
