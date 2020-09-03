@@ -39,7 +39,7 @@ $wh=winGetHandle("BGT Runtime Error")
 beep(500,500)
 WinActivate($wh)
 $thing=ControlGetText($wh,"",65535)
-if $thing=="" then
+if $thing="" then
 $thing=WinGetText($wh)
 EndIf
 ;get the process location
@@ -53,12 +53,12 @@ if $FullPath <> "" then
 $program=$FullPath
 EndIf
 ;if the location check worked, we now have the path of an executable to be rerun.
-global $ShouldClip=0
-if ControlCommand($wh,"","CLASS:Button;ID:6","IsEnabled")==1 then
+$ShouldClip=0
+if ControlCommand($wh,"",6,"IsEnabled")=1 then
 ;this is a yes/no dialog, click yes to copy the stack trace.
 ControlClick($wh,"",6)
 $ShouldClip=1
-ElseIf ControlCommand($wh,"","CLASS:Button;ID:2;TEXT:OK","IsEnabled")==1 then
+ElseIf ControlCommand($wh,"",2,"IsEnabled")=1 then
 ;this is a special runtime error with an okay button, no stack trace available.
 ControlClick($wh,"",2)
 else
@@ -66,13 +66,9 @@ else
 ProcessClose($PID)
 EndIf
 sleep(500) ;give it time to exit fully and copy the stack trace if it was going to do that.
-if ProcessExists($PID) then
-ProcessClose($PID)
-EndIf
-if $ShouldClip==1 then
-global $thing1=ClipGet()
-else
-$thing1=""
+$thing1="no stack trace available"
+if $ShouldClip <> 0 then
+$thing1=ClipGet()
 EndIf
 ;log the error. Append to the end of runtimes.txt, overwrite latest_runtime.txt
 $fh=FileOpen($folder&"/runtimes.txt",1)
