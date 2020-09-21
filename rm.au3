@@ -1,6 +1,6 @@
 ; MIT License
 ; 
-; Copyright (c) 2019 Colton Hill
+; Copyright (c) 2019-2020 Colton Hill
 ; 
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -65,10 +65,11 @@ else
 ;don't know what this is, just kill it.
 ProcessClose($PID)
 EndIf
-sleep(500) ;give it time to exit fully and copy the stack trace if it was going to do that.
+ProcessWaitClose($PID, 10) ;give it time to exit fully and copy the stack trace if it was going to do that.
 $thing1="no stack trace available"
 if $ShouldClip <> 0 then
 $thing1=ClipGet()
+ClipPut("")
 EndIf
 ;log the error. Append to the end of runtimes.txt, overwrite latest_runtime.txt
 $fh=FileOpen($folder&"/runtimes.txt",1)
